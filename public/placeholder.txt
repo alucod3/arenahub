@@ -1,0 +1,7 @@
+Pasta public para assets estáticos.
+
+Adicione aqui:
+- Imagens de jogos
+- Ícones personalizados
+- Favicon
+- Open Graph images
