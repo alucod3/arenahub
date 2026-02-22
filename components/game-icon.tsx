@@ -12,28 +12,28 @@ const GAME_CONFIG: Record<Game, {
   label: string
 }> = {
   'League of Legends': {
-    image: '/images/games/lol.jpg',
+    image: '/images/games/lol.png',
     gradient: 'from-[#0AC8B9] to-[#0397AB]',
     color: '#0AC8B9',
     bgColor: 'bg-[#0AC8B9]/15',
     label: 'LoL',
   },
   'Valorant': {
-    image: '/images/games/valorant.jpg',
+    image: '/images/games/valorant.png',
     gradient: 'from-[#FF4655] to-[#BD3944]',
     color: '#FF4655',
     bgColor: 'bg-[#FF4655]/15',
     label: 'Valorant',
   },
   'CS2': {
-    image: '/images/games/cs2.jpg',
+    image: '/images/games/cs2.png',
     gradient: 'from-[#F7941D] to-[#DE6C00]',
     color: '#F7941D',
     bgColor: 'bg-[#F7941D]/15',
     label: 'CS2',
   },
   'Free Fire': {
-    image: '/images/games/freefire.jpg',
+    image: '/images/games/freefire.png',
     gradient: 'from-[#FF6600] to-[#FF3300]',
     color: '#FF6600',
     bgColor: 'bg-[#FF6600]/15',
@@ -114,5 +114,5 @@ export function getGameGradient(game: Game): string {
 }
 
 export function getGameImage(game: Game): string {
-  return GAME_CONFIG[game]?.image || '/images/games/lol.jpg'
+  return GAME_CONFIG[game]?.image || '/images/games/lol.png'
 }
