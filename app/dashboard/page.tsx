@@ -8,7 +8,7 @@ import { TournamentCard, TournamentCardSkeleton } from "@/components/tournament-
 import { Button } from "@/components/ui/button"
 import { getUserSavedTournaments, removeSavedTournament, getOrCreateUserProfile } from "@/lib/supabase"
 import type { SavedTournament, UserProfile } from "@/lib/types"
-import { Trophy, Calendar, Star, Bookmark, Sparkles, Gamepad2, ArrowRight } from "lucide-react"
+import { Trophy, Calendar, Star, Bookmark, Gamepad2, ArrowRight } from "lucide-react"
 import { calculateDaysUntil } from "@/lib/utils"
 
 export default function DashboardPage() {
@@ -73,7 +73,7 @@ export default function DashboardPage() {
 
   if (!isLoaded || !userId) {
     return (
-      <div className="min-h-screen bg-deep-space">
+      <div className="min-h-screen bg-arena-dark">
         <div className="container mx-auto px-4 py-12">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 3 }).map((_, i) => (
@@ -87,24 +87,22 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen relative">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-deep-space via-dark-void to-deep-space" />
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-neon-purple/10 rounded-full blur-[150px]" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-neon-cyan/10 rounded-full blur-[150px]" />
+      {/* Subtle bg */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-arena-green/[0.03] rounded-full blur-[180px]" />
 
       {/* Header section */}
-      <div className="relative z-10 border-b border-gray-medium bg-dark-void/50 backdrop-blur-xl">
+      <div className="relative z-10 border-b border-arena-border bg-arena-card/50 backdrop-blur-xl">
         <div className="container mx-auto px-4 py-12">
           <div className="flex items-center gap-3 mb-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-neon-purple to-neon-pink">
-              <Sparkles className="h-6 w-6 text-white" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-arena-green/10 border border-arena-green/20">
+              <Trophy className="h-6 w-6 text-arena-green" />
             </div>
             <div>
-              <h1 className="font-display text-3xl md:text-4xl font-black text-white">
+              <h1 className="font-display text-3xl md:text-4xl font-black text-arena-text">
                 Meus Torneios
               </h1>
-              <p className="text-gray-light">
-                Olá, <span className="text-neon-cyan font-semibold">{user?.firstName || "Jogador"}</span>! 
+              <p className="text-arena-muted">
+                Ola, <span className="text-arena-green font-semibold">{user?.firstName || "Jogador"}</span>!
                 Acompanhe seus torneios salvos.
               </p>
             </div>
@@ -119,29 +117,32 @@ export default function DashboardPage() {
             icon={Bookmark}
             value={savedTournaments.length}
             label="Torneios Salvos"
-            gradient="from-neon-purple to-neon-pink"
+            accent="text-arena-green"
+            accentBg="bg-arena-green/10 border-arena-green/20"
           />
           <StatCard
             icon={Calendar}
             value={upcomingCount}
-            label="Próximos 7 dias"
-            gradient="from-neon-cyan to-electric-blue"
+            label="Proximos 7 dias"
+            accent="text-arena-blue"
+            accentBg="bg-arena-blue/10 border-arena-blue/20"
           />
           <StatCard
             icon={Star}
             value={userProfile?.points || 0}
             label="Pontos"
-            gradient="from-victory-gold to-yellow-400"
+            accent="text-arena-gold"
+            accentBg="bg-arena-gold/10 border-arena-gold/20"
           />
         </div>
 
         {/* Saved tournaments section */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="font-heading text-xl font-bold text-white">
+          <h2 className="font-heading text-xl font-bold text-arena-text">
             Torneios Salvos
           </h2>
           {savedTournaments.length > 0 && (
-            <span className="text-sm text-gray-light">
+            <span className="text-sm text-arena-muted">
               {savedTournaments.length} torneio{savedTournaments.length !== 1 && 's'}
             </span>
           )}
@@ -186,19 +187,19 @@ export default function DashboardPage() {
           </div>
         ) : (
           <div className="text-center py-20 glass-card">
-            <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gray-dark border border-gray-medium mb-6">
-              <Gamepad2 className="h-12 w-12 text-gray-light" />
+            <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-2xl bg-arena-surface border border-arena-border mb-6">
+              <Gamepad2 className="h-12 w-12 text-arena-muted" />
             </div>
-            <h3 className="font-heading text-2xl font-bold text-white mb-3">
+            <h3 className="font-heading text-2xl font-bold text-arena-text mb-3">
               Nenhum torneio salvo ainda
             </h3>
-            <p className="text-gray-light max-w-md mx-auto mb-8">
-              Explore os torneios disponíveis e salve seus favoritos para
-              acompanhá-los por aqui.
+            <p className="text-arena-muted max-w-md mx-auto mb-8">
+              Explore os torneios disponiveis e salve seus favoritos para
+              acompanha-los por aqui.
             </p>
             <Button
               size="lg"
-              className="bg-gradient-to-r from-neon-purple to-neon-pink font-heading font-bold"
+              className="bg-arena-green hover:bg-arena-green-light text-arena-dark font-heading font-bold"
               asChild
             >
               <Link href="/tournaments">
@@ -217,21 +218,23 @@ function StatCard({
   icon: Icon,
   value,
   label,
-  gradient,
+  accent,
+  accentBg,
 }: {
-  icon: any
+  icon: React.ComponentType<{ className?: string }>
   value: number
   label: string
-  gradient: string
+  accent: string
+  accentBg: string
 }) {
   return (
-    <div className="glass-card p-6 flex items-center gap-4 group hover:scale-[1.02] transition-transform">
-      <div className={`flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${gradient} group-hover:scale-110 transition-transform`}>
-        <Icon className="h-7 w-7 text-white" />
+    <div className="glass-card p-6 flex items-center gap-4 group hover:border-white/10 transition-all">
+      <div className={`flex h-14 w-14 items-center justify-center rounded-xl border ${accentBg} group-hover:scale-110 transition-transform`}>
+        <Icon className={`h-7 w-7 ${accent}`} />
       </div>
       <div>
-        <p className="font-display text-3xl font-black text-white">{value}</p>
-        <p className="text-sm text-gray-light font-heading">{label}</p>
+        <p className="font-display text-3xl font-black text-arena-text">{value}</p>
+        <p className="text-sm text-arena-muted font-heading">{label}</p>
       </div>
     </div>
   )

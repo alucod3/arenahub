@@ -10,7 +10,7 @@ const footerLinks = {
   ],
   organizadores: [
     { name: "Cadastrar Torneio", href: "/organizer" },
-    { name: "Planos e Preços", href: "#" },
+    { name: "Planos e Precos", href: "#" },
     { name: "Recursos", href: "#" },
     { name: "Suporte", href: "#" },
   ],
@@ -23,44 +23,42 @@ const footerLinks = {
 }
 
 const socialLinks = [
-  { name: "Twitter", icon: Twitter, href: "#", color: "hover:text-[#1DA1F2]" },
-  { name: "Instagram", icon: Instagram, href: "#", color: "hover:text-[#E4405F]" },
-  { name: "YouTube", icon: Youtube, href: "#", color: "hover:text-[#FF0000]" },
-  { name: "Discord", icon: MessageCircle, href: "#", color: "hover:text-[#5865F2]" },
+  { name: "Twitter", icon: Twitter, href: "#" },
+  { name: "Instagram", icon: Instagram, href: "#" },
+  { name: "YouTube", icon: Youtube, href: "#" },
+  { name: "Discord", icon: MessageCircle, href: "#" },
 ]
 
 export function Footer() {
   return (
-    <footer className="border-t border-gray-medium bg-card-dark relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-neon-purple/5 rounded-full blur-[150px]" />
-      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-neon-cyan/5 rounded-full blur-[150px]" />
-
+    <footer className="border-t border-arena-border bg-arena-card relative overflow-hidden">
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 mb-12">
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4 group">
-              <Trophy className="h-7 w-7 text-neon-purple group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.6)] transition-all" />
-              <span className="font-display text-xl font-black">
-                ARENA<span className="text-neon-cyan">HUB</span>
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-arena-green">
+                <Trophy className="h-4 w-4 text-arena-dark" />
+              </div>
+              <span className="font-display text-xl font-black text-arena-text">
+                ARENA<span className="text-arena-green">HUB</span>
               </span>
             </Link>
-            <p className="text-gray-light text-sm mb-6 leading-relaxed">
-              Seu centro de competições amadoras de games. Conectando jogadores e
+            <p className="text-arena-muted text-sm mb-6 leading-relaxed">
+              Seu centro de competicoes amadoras de games. Conectando jogadores e
               organizadores desde 2024.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-2">
               {socialLinks.map((social) => {
                 const Icon = social.icon
                 return (
                   <a
                     key={social.name}
                     href={social.href}
-                    className={`flex h-10 w-10 items-center justify-center rounded-lg bg-gray-dark border border-gray-medium text-gray-light transition-all duration-300 ${social.color} hover:border-gray-light hover:scale-110`}
+                    className="flex h-9 w-9 items-center justify-center rounded-lg bg-arena-surface border border-arena-border text-arena-muted transition-all duration-300 hover:text-arena-green hover:border-arena-green/30 hover:bg-arena-green/10"
                     aria-label={social.name}
                   >
-                    <Icon className="h-5 w-5" />
+                    <Icon className="h-4 w-4" />
                   </a>
                 )
               })}
@@ -69,7 +67,7 @@ export function Footer() {
 
           {/* Links columns */}
           <div>
-            <h3 className="font-heading text-sm font-bold text-white uppercase tracking-wider mb-4">
+            <h3 className="font-heading text-sm font-bold text-arena-text uppercase tracking-wider mb-4">
               Jogadores
             </h3>
             <ul className="space-y-3">
@@ -77,7 +75,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-light hover:text-neon-cyan transition-colors"
+                    className="text-sm text-arena-muted hover:text-arena-green transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -87,7 +85,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-heading text-sm font-bold text-white uppercase tracking-wider mb-4">
+            <h3 className="font-heading text-sm font-bold text-arena-text uppercase tracking-wider mb-4">
               Organizadores
             </h3>
             <ul className="space-y-3">
@@ -95,7 +93,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-light hover:text-neon-cyan transition-colors"
+                    className="text-sm text-arena-muted hover:text-arena-green transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -105,7 +103,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-heading text-sm font-bold text-white uppercase tracking-wider mb-4">
+            <h3 className="font-heading text-sm font-bold text-arena-text uppercase tracking-wider mb-4">
               Legal
             </h3>
             <ul className="space-y-3">
@@ -113,7 +111,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-light hover:text-neon-cyan transition-colors"
+                    className="text-sm text-arena-muted hover:text-arena-green transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -124,20 +122,20 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-gray-medium pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-light text-sm flex items-center gap-1">
-            © {new Date().getFullYear()} Arena Hub. Feito com{" "}
-            <Heart className="h-4 w-4 text-danger-red fill-current inline animate-pulse" />{" "}
+        <div className="border-t border-arena-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-arena-muted text-sm flex items-center gap-1">
+            {new Date().getFullYear()} Arena Hub. Feito com{" "}
+            <Heart className="h-3.5 w-3.5 text-arena-red fill-current inline" />{" "}
             para a comunidade gamer BR
           </p>
-          <div className="flex gap-6 text-sm text-gray-light">
-            <Link href="#" className="hover:text-neon-cyan transition-colors">
+          <div className="flex gap-6 text-sm text-arena-muted">
+            <Link href="#" className="hover:text-arena-green transition-colors">
               Termos
             </Link>
-            <Link href="#" className="hover:text-neon-cyan transition-colors">
+            <Link href="#" className="hover:text-arena-green transition-colors">
               Privacidade
             </Link>
-            <Link href="#" className="hover:text-neon-cyan transition-colors">
+            <Link href="#" className="hover:text-arena-green transition-colors">
               Contato
             </Link>
           </div>

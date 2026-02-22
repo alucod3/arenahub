@@ -1,6 +1,7 @@
 "use client"
 
-import { DollarSign, Calendar, Gamepad2, Sparkles } from "lucide-react"
+import Image from "next/image"
+import { DollarSign, Calendar, Gamepad2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import {
   Select,
@@ -11,33 +12,33 @@ import {
 } from "@/components/ui/select"
 import type { TournamentFilters, Game, TournamentFormat } from "@/lib/types"
 
-const games: { value: Game | "all"; label: string; emoji: string; gradient: string }[] = [
-  { value: "all", label: "Todos", emoji: "🎮", gradient: "from-neon-purple to-neon-cyan" },
-  { value: "League of Legends", label: "LoL", emoji: "⚔️", gradient: "from-blue-500 to-cyan-400" },
-  { value: "Valorant", label: "Valorant", emoji: "🎯", gradient: "from-red-500 to-pink-500" },
-  { value: "CS2", label: "CS2", emoji: "🔫", gradient: "from-orange-500 to-yellow-500" },
-  { value: "Free Fire", label: "Free Fire", emoji: "🔥", gradient: "from-orange-600 to-red-500" },
+const games: { value: Game | "all"; label: string; image?: string; color: string }[] = [
+  { value: "all", label: "Todos", color: "#10B981" },
+  { value: "League of Legends", label: "LoL", image: "/images/games/lol.jpg", color: "#0AC8B9" },
+  { value: "Valorant", label: "Valorant", image: "/images/games/valorant.jpg", color: "#FF4655" },
+  { value: "CS2", label: "CS2", image: "/images/games/cs2.jpg", color: "#F7941D" },
+  { value: "Free Fire", label: "Free Fire", image: "/images/games/freefire.jpg", color: "#FF6600" },
 ]
 
 const prizeRanges = [
-  { value: "all", label: "Todas as Premiações" },
-  { value: "under500", label: "Até R$ 500" },
+  { value: "all", label: "Todas as Premiacoes" },
+  { value: "under500", label: "Ate R$ 500" },
   { value: "500to2000", label: "R$ 500 - R$ 2.000" },
   { value: "over2000", label: "Acima de R$ 2.000" },
 ]
 
 const dateRanges = [
   { value: "all", label: "Todas as Datas" },
-  { value: "7days", label: "Próximos 7 dias" },
-  { value: "thisMonth", label: "Este mês" },
-  { value: "nextMonth", label: "Próximo mês" },
+  { value: "7days", label: "Proximos 7 dias" },
+  { value: "thisMonth", label: "Este mes" },
+  { value: "nextMonth", label: "Proximo mes" },
 ]
 
 const formats: { value: TournamentFormat | "all"; label: string }[] = [
   { value: "all", label: "Todos os Formatos" },
   { value: "Online", label: "Online" },
   { value: "Presencial", label: "Presencial" },
-  { value: "Híbrido", label: "Híbrido" },
+  { value: "Hibrido" as TournamentFormat, label: "Hibrido" },
 ]
 
 interface TournamentFiltersProps {
@@ -78,24 +79,32 @@ export function TournamentFiltersComponent({
 
   return (
     <div className="space-y-6">
-      {/* Game filter pills */}
+      {/* Game filter pills with icons */}
       <div className="flex flex-wrap gap-3">
         {games.map((game) => (
           <button
             key={game.value}
             onClick={() => handleGameChange(game.value)}
             className={cn(
-              "group flex items-center gap-2 px-4 py-2.5 rounded-xl font-heading font-semibold text-sm transition-all duration-300",
+              "group flex items-center gap-2.5 px-4 py-2.5 rounded-xl font-heading font-semibold text-sm transition-all duration-300",
               isGameSelected(game.value)
-                ? `bg-gradient-to-r ${game.gradient} text-white shadow-[0_0_25px_rgba(168,85,247,0.4)]`
-                : "bg-gray-dark border border-gray-medium text-gray-light hover:border-neon-purple/50 hover:text-white"
+                ? "bg-white/[0.08] text-arena-text ring-1 shadow-sm"
+                : "bg-white/[0.03] border border-arena-border text-arena-muted hover:border-white/10 hover:text-arena-text"
             )}
+            style={isGameSelected(game.value) ? { ringColor: `${game.color}50`, boxShadow: `0 0 20px ${game.color}15` } : undefined}
           >
-            <span className="text-lg">{game.emoji}</span>
-            <span>{game.label}</span>
-            {isGameSelected(game.value) && (
-              <Sparkles className="h-3.5 w-3.5 animate-pulse" />
+            {game.image ? (
+              <Image
+                src={game.image}
+                alt={game.label}
+                width={24}
+                height={24}
+                className="h-6 w-6 rounded object-cover"
+              />
+            ) : (
+              <Gamepad2 className="h-5 w-5" />
             )}
+            <span>{game.label}</span>
           </button>
         ))}
       </div>
@@ -107,7 +116,7 @@ export function TournamentFiltersComponent({
           value={filters.prizeRange || "all"}
           onValueChange={handlePrizeChange}
           options={prizeRanges}
-          placeholder="Premiação"
+          placeholder="Premiacao"
         />
         <FilterDropdown
           icon={Calendar}
@@ -135,7 +144,7 @@ function FilterDropdown({
   options,
   placeholder,
 }: {
-  icon: any
+  icon: React.ComponentType<{ className?: string }>
   value: string
   onValueChange: (value: string) => void
   options: { value: string; label: string }[]
@@ -143,18 +152,18 @@ function FilterDropdown({
 }) {
   return (
     <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger className="bg-gray-dark border-gray-medium hover:border-neon-purple/50 text-white font-heading transition-colors">
+      <SelectTrigger className="bg-arena-card border-arena-border hover:border-white/10 text-arena-text font-heading transition-colors">
         <div className="flex items-center gap-2">
-          <Icon className="h-4 w-4 text-neon-cyan" />
+          <Icon className="h-4 w-4 text-arena-green" />
           <SelectValue placeholder={placeholder} />
         </div>
       </SelectTrigger>
-      <SelectContent className="bg-card-dark border-gray-medium">
+      <SelectContent className="bg-arena-card border-arena-border">
         {options.map((option) => (
           <SelectItem
             key={option.value}
             value={option.value}
-            className="font-heading hover:bg-neon-purple/20 focus:bg-neon-purple/20"
+            className="font-heading text-arena-text hover:bg-arena-green/10 focus:bg-arena-green/10"
           >
             {option.label}
           </SelectItem>

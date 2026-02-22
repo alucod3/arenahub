@@ -1,37 +1,43 @@
 "use client"
 
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 import type { Game } from "@/lib/types"
 
 const GAME_CONFIG: Record<Game, {
-  emoji: string
+  image: string
   gradient: string
   color: string
   bgColor: string
+  label: string
 }> = {
   'League of Legends': {
-    emoji: '⚔️',
-    gradient: 'from-blue-500 to-cyan-400',
+    image: '/images/games/lol.jpg',
+    gradient: 'from-[#0AC8B9] to-[#0397AB]',
     color: '#0AC8B9',
-    bgColor: 'bg-blue-500/20',
+    bgColor: 'bg-[#0AC8B9]/15',
+    label: 'LoL',
   },
   'Valorant': {
-    emoji: '🎯',
-    gradient: 'from-red-500 to-pink-500',
+    image: '/images/games/valorant.jpg',
+    gradient: 'from-[#FF4655] to-[#BD3944]',
     color: '#FF4655',
-    bgColor: 'bg-red-500/20',
+    bgColor: 'bg-[#FF4655]/15',
+    label: 'Valorant',
   },
   'CS2': {
-    emoji: '🔫',
-    gradient: 'from-orange-500 to-yellow-500',
+    image: '/images/games/cs2.jpg',
+    gradient: 'from-[#F7941D] to-[#DE6C00]',
     color: '#F7941D',
-    bgColor: 'bg-orange-500/20',
+    bgColor: 'bg-[#F7941D]/15',
+    label: 'CS2',
   },
   'Free Fire': {
-    emoji: '🔥',
-    gradient: 'from-orange-600 to-red-500',
+    image: '/images/games/freefire.jpg',
+    gradient: 'from-[#FF6600] to-[#FF3300]',
     color: '#FF6600',
-    bgColor: 'bg-orange-600/20',
+    bgColor: 'bg-[#FF6600]/15',
+    label: 'FF',
   },
 }
 
@@ -47,32 +53,29 @@ export function GameIcon({ game, size = 'md', showGlow = false, className }: Gam
   if (!config) return null
 
   const sizes = {
-    sm: { container: 'h-8 w-8', emoji: 'text-base' },
-    md: { container: 'h-12 w-12', emoji: 'text-2xl' },
-    lg: { container: 'h-16 w-16', emoji: 'text-3xl' },
-    xl: { container: 'h-20 w-20', emoji: 'text-4xl' },
+    sm: { container: 'h-8 w-8', image: 32 },
+    md: { container: 'h-12 w-12', image: 48 },
+    lg: { container: 'h-16 w-16', image: 64 },
+    xl: { container: 'h-20 w-20', image: 80 },
   }
 
   return (
     <div
       className={cn(
-        "relative rounded-xl p-0.5",
-        `bg-gradient-to-br ${config.gradient}`,
-        showGlow && "shadow-lg",
+        "relative rounded-xl overflow-hidden ring-1 ring-white/10",
+        sizes[size].container,
+        showGlow && "ring-2",
         className
       )}
-      style={showGlow ? { boxShadow: `0 0 20px ${config.color}40` } : undefined}
+      style={showGlow ? { boxShadow: `0 0 20px ${config.color}30`, ringColor: `${config.color}50` } : undefined}
     >
-      <div
-        className={cn(
-          "flex items-center justify-center rounded-[10px] bg-card-dark",
-          sizes[size].container
-        )}
-      >
-        <span className={sizes[size].emoji} role="img" aria-label={game}>
-          {config.emoji}
-        </span>
-      </div>
+      <Image
+        src={config.image}
+        alt={game}
+        width={sizes[size].image}
+        height={sizes[size].image}
+        className="h-full w-full object-cover"
+      />
     </div>
   )
 }
@@ -84,13 +87,19 @@ export function GameBadge({ game, className }: { game: Game; className?: string 
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold",
+        "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border",
         config.bgColor,
         className
       )}
-      style={{ color: config.color }}
+      style={{ color: config.color, borderColor: `${config.color}30` }}
     >
-      <span>{config.emoji}</span>
+      <Image
+        src={config.image}
+        alt={game}
+        width={16}
+        height={16}
+        className="h-4 w-4 rounded object-cover"
+      />
       <span>{game}</span>
     </div>
   )
@@ -102,4 +111,8 @@ export function getGameColor(game: Game): string {
 
 export function getGameGradient(game: Game): string {
   return GAME_CONFIG[game]?.gradient || 'from-neon-purple to-neon-pink'
+}
+
+export function getGameImage(game: Game): string {
+  return GAME_CONFIG[game]?.image || '/images/games/lol.jpg'
 }

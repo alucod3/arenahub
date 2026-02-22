@@ -7,7 +7,7 @@ import { TournamentFiltersComponent } from "./tournament-filters"
 import { Button } from "@/components/ui/button"
 import { getTournaments, getUserSavedTournamentIds, saveTournament, removeSavedTournament } from "@/lib/supabase"
 import type { Tournament, TournamentFilters } from "@/lib/types"
-import { Gamepad2, Sparkles, ChevronDown } from "lucide-react"
+import { Gamepad2, Trophy, ChevronDown } from "lucide-react"
 
 const ITEMS_PER_PAGE = 9
 
@@ -80,22 +80,19 @@ export function TournamentList() {
 
   return (
     <section className="py-16 relative">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-deep-space via-dark-void/30 to-deep-space" />
-
       <div className="container mx-auto px-4 relative z-10">
         {/* Section header */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-neon-purple to-neon-pink">
-              <Sparkles className="h-5 w-5 text-white" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-arena-green/10 border border-arena-green/20">
+              <Trophy className="h-5 w-5 text-arena-green" />
             </div>
-            <h2 className="font-display text-3xl md:text-4xl font-black text-white">
-              Torneios Disponíveis
+            <h2 className="font-display text-3xl md:text-4xl font-black text-arena-text">
+              Torneios Disponiveis
             </h2>
           </div>
-          <p className="text-gray-light text-lg">
-            Encontre o campeonato perfeito para você
+          <p className="text-arena-muted text-lg">
+            Encontre o campeonato perfeito para voce
           </p>
         </div>
 
@@ -149,7 +146,7 @@ export function TournamentList() {
                   variant="outline"
                   size="lg"
                   onClick={handleLoadMore}
-                  className="border-neon-purple/50 text-neon-purple hover:bg-neon-purple/10 hover:border-neon-purple font-heading font-bold px-8"
+                  className="border-arena-border text-arena-muted hover:bg-arena-green/10 hover:border-arena-green/30 hover:text-arena-green font-heading font-bold px-8"
                 >
                   <ChevronDown className="mr-2 h-5 w-5" />
                   Carregar mais torneios
@@ -159,13 +156,13 @@ export function TournamentList() {
           </>
         ) : (
           <div className="text-center py-20">
-            <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gray-dark border border-gray-medium mb-6">
-              <Gamepad2 className="h-12 w-12 text-gray-light" />
+            <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-2xl bg-arena-surface border border-arena-border mb-6">
+              <Gamepad2 className="h-12 w-12 text-arena-muted" />
             </div>
-            <h3 className="font-heading text-2xl font-bold text-white mb-3">
+            <h3 className="font-heading text-2xl font-bold text-arena-text mb-3">
               Nenhum torneio encontrado
             </h3>
-            <p className="text-gray-light max-w-md mx-auto">
+            <p className="text-arena-muted max-w-md mx-auto">
               Tente ajustar os filtros para encontrar mais torneios, ou volte
               mais tarde para novas oportunidades.
             </p>

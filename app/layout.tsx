@@ -6,18 +6,18 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import "./globals.css"
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 })
 
-const orbitron = Orbitron({ 
+const orbitron = Orbitron({
   subsets: ["latin"],
   variable: "--font-orbitron",
   weight: ["700", "900"],
 })
 
-const rajdhani = Rajdhani({ 
+const rajdhani = Rajdhani({
   subsets: ["latin"],
   variable: "--font-rajdhani",
   weight: ["600", "700"],
@@ -26,7 +26,7 @@ const rajdhani = Rajdhani({
 export const metadata: Metadata = {
   title: "Arena Hub - Torneios Amadores de Games",
   description:
-    "Descubra torneios de League of Legends, Valorant, CS2 e Free Fire. Salve seus favoritos, receba lembretes e nunca perca uma inscrição.",
+    "Descubra torneios de League of Legends, Valorant, CS2 e Free Fire. Salve seus favoritos, receba lembretes e nunca perca uma inscricao.",
   keywords: [
     "torneios",
     "games",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     siteName: "Arena Hub",
     title: "Arena Hub - Torneios Amadores de Games",
     description:
-      "Descubra torneios de League of Legends, Valorant, CS2 e Free Fire. Salve seus favoritos, receba lembretes e nunca perca uma inscrição.",
+      "Descubra torneios de League of Legends, Valorant, CS2 e Free Fire.",
   },
   twitter: {
     card: "summary_large_image",
@@ -64,8 +64,8 @@ export default function RootLayout({
   return (
     <ClerkProvider localization={ptBR}>
       <html lang="pt-BR" className={`dark scroll-smooth ${inter.variable} ${orbitron.variable} ${rajdhani.variable}`}>
-        <body className="font-body">
-          <div className="flex min-h-screen flex-col bg-deep-space">
+        <body className="font-sans">
+          <div className="flex min-h-screen flex-col bg-arena-dark">
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />
